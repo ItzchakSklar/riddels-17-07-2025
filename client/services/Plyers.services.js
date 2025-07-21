@@ -1,4 +1,4 @@
-import { ViewleaderBoardApi, sendRecordToServer } from "../api/Useres.Api.js";
+import { ViewleaderBoardApi } from "../api/Useres.Api.js";
 
 export async function ViewleaderBoard() {
     const leaderboard = await ViewleaderBoardApi();

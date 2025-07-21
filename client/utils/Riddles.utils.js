@@ -1,5 +1,5 @@
 import { creatRiddle } from "../services/Riddle.services.js";
-import { addRiddle } from "../api/RiddlesApi.js";
+import { addRiddle } from "../api/Riddles.Api.js";
 
 
 export async function creatRiddleAndSend() {

@@ -38,7 +38,7 @@ export async function runGame(player){
             player.recordTime(start, end);
             updatePlayerRecord(player)
     })
-    console.log(player.reccord());
+    console.log(player.getReccord());
     player.showStats();
 }
 
