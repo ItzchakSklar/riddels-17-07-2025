@@ -1,0 +1,21 @@
+{
+  "name": "29-06-2025",
+  "version": "1.0.0",
+  "main": "controllers/riddle.controllers.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --watch --env-file=.env index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.17.0",
+    "node-fetch": "^3.3.2",
+    "readline-sync": "^1.4.10"
+  }
+}
