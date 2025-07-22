@@ -3,7 +3,6 @@ import  configRoutes  from './Routes/Config.Routes.js';
 
 const PORT = process.env.PORT || 3005;
 
-const router = express.Router();
 const app = express();
 
 app.use(express.json());
