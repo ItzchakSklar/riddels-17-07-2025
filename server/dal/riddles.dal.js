@@ -12,7 +12,7 @@ let db = null;
 /**
  * @returns {Promise<Db>}
  */
-export default async function connect() {
+async function connect() {
     if (!db) {
         await client.connect();
         db = client.db("start_mongo");
@@ -36,5 +36,29 @@ export async function getRiddlesDal() {
         console.log(err)
         return "{}";
     };
+};
+
+export async function updateRiddleDal(id, newRiddle) {
+    try {
+        const db = await connect();
+        const result = await db.collection("riddles").updateOne(
+            { _id: new ObjectId(id) },
+            { $set: newRiddle }
+        );
+        return result.modifiedCount > 0;
+    } catch (err) {
+        console.log("Update error:", err);
+        return false;
+    }
 }
 
+export async function deleteRiddleDal(id) {
+    try {
+        const db = await connect();
+        const result = await db.collection("riddles").deleteOne({ _id: new ObjectId(id) });
+        return result.deletedCount > 0;
+    } catch (err) {
+        console.log("Delete error:", err);
+        return false;
+    }
+}

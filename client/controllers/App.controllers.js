@@ -1,9 +1,19 @@
-import { creatRiddleAndSend } from "./Riddles.utils.js";
+import { creatRiddleAndSend } from "./Riddles.controllers.js";
 import { ShowAllRiddles, UpdateExistingRiddle, DeleteRiddlesServices,GetRiddles } from "../services/Riddle.services.js";
-import { ViewleaderBoard,updatePlayerRecord } from "../services/Plyers.services.js"
+import { ViewleaderBoard,
+    updatePlayerRecord,
+    // connectPlayerServices,
+    connectPlayerController
+} from "../services/Plyers.services.js"
 
 
 
+// connect player
+export async function connectPlayer(name){
+    return await connectPlayerController(name)
+}
+
+// print Menu
 export function printMenu(){
     console.log(`
 What do you want to do?
@@ -17,6 +27,7 @@ What do you want to do?
     `);
 }
 
+// Chach Time return second
 export function ChachTime(now) {
     let seconds = now.getSeconds();
     let minutes = now.getMinutes();
@@ -26,6 +37,7 @@ export function ChachTime(now) {
     return seconds
 }
 
+// run Game main function 
 export async function runGame(player){
 
     const arrRiddles = await GetRiddles();
@@ -36,14 +48,17 @@ export async function runGame(player){
             element.ask();
             let end = ChachTime(new Date());
             player.recordTime(start, end);
-            updatePlayerRecord(player)
     })
-    console.log(player.getReccord());
+    const Reccort = player.getReccord();
+    console.log(Reccort);
     player.showStats();
+    await updatePlayerRecord(player);
+    console.log("update reccord");
 }
+// updatePlayerRecord
 
 
-// What do you want to do?
+// switch Choice 1 - 7
 // 1. Play the game         !
 // 2. Create a new riddle   !
 // 3. Read all riddles      !
@@ -84,3 +99,6 @@ export async function switchChoice(Choice,player){
     }
 }
 
+// export async function connect(name){
+//     await connectPlayerServices({"name":name});
+// }

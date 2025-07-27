@@ -12,7 +12,7 @@ export class Player {
         this.times.push(duration)
     }
     getReccord() {
-        if (this.reccord === -1) {
+        if (this.reccord === -1 || this.times != []) {
             let ollTime = 0;
             this.sumRiddles = this.times.length;
             this.times.forEach(element => {
@@ -23,7 +23,7 @@ export class Player {
         }
         return this.reccord;
     }
-    showStats() {
+    showStats(){
         if (this.reccord === -1) {
             let ollTime = 0;
             this.sumRiddles = this.times.length;
@@ -33,18 +33,10 @@ export class Player {
             this.reccord = ollTime;
             this.times = [];
         }
-        console.clear();
+        // console.clear();
         console.log("total time =", this.reccord, "seconds");
         let average = this.reccord / this.sumRiddles;
-        console.log("Average time per reddle =", average, "seconds")
+        console.log("Average time per reddle =", average, "seconds");
         }
     }
-// Class: Player
-// Tracks player info and timings.
-// Properties:
-// ● name
-// ● times[] — array of durations per riddle
 
-// Methods:
-// ● recordTime(start, end)
-// ● showStats() — display total and average time

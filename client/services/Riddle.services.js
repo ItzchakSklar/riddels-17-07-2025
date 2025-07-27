@@ -1,7 +1,5 @@
 import readline from "readline-sync";
-import { Riddle } from "../classes/Riddle.js"
-import { GetAllRiddles, CheckRiddelIfExist, DeleteRiddleApi, updateRiddelName, updateRiddelDescription, updateRiddelAnswer } from "../api/Riddles.Api.js";
-
+import { GetAllRiddles, addRiddle, CheckRiddelIfExist, DeleteRiddleApi, updateRiddelName, updateRiddelDescription, updateRiddelAnswer } from "../api/Riddles.Api.js";
 
 
 export async function ShowAllRiddles() {
@@ -15,13 +13,11 @@ export async function ShowAllRiddles() {
     });
 }
 
-export function creatRiddle(){
-
-    const name = readline.question("emter name of riddle: ");
-    const riddle = readline.question("enter the riddle: ");
-    const answer = readline.question("enter the correct answer: ");
-
-    return new Riddle(-1,name,riddle,answer);
+export async function AddNewRiddleToDB(newRiddle) {
+    if (newRiddle.id === -1) {
+        delete newRiddle.id;
+    }
+    return await addRiddle(newRiddle);
 }
 
 export async function DeleteRiddlesServices(){

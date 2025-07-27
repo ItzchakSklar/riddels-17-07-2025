@@ -1,5 +1,7 @@
 import express from 'express';
 import  configRoutes  from './Routes/Config.Routes.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PORT = process.env.PORT || 3005;
 
@@ -10,6 +12,6 @@ app.use(express.json());
 configRoutes(app);
 
 app.listen(PORT, () => {
-    console.log(`Server runing on port:${PORT}`);
+    console.log(`Server runing on http://localhost/${PORT}`);
 })
 

@@ -21,7 +21,7 @@
 
 
 import { Router } from "express";
-import {getRiddlesController , addRiddle, ChackID, updateName, updateDescription, updateAnswer, deleteRiddle } from "../controllers/riddle.controllers.js"
+import {getRiddlesController , addRiddle, ChackID, updateRiddle, deleteRiddle } from "../controllers/riddle.controllers.js"
 
 const router = Router();
 
@@ -29,35 +29,33 @@ router.get("/all",getRiddlesController)
 
 router.post("/add", addRiddle)
 
-router.get("/ChackID/:id", (req, res) => {
-    const result = ChackID(req.params.id);
-    res.send(result);
-});
+router.get("/ChackID/:id",ChackID);
 
-router.patch("/name/:id", (req, res) => {
-    updateName(req.params.id,req.body);
-    const result = console.log("got name");
-    res.send(result);
-});
+router.patch("/name/:id", updateRiddle);
 
-router.patch("/Description/:id", (req, res) => {
-    const result = updateDescription(req.params.id,req.body);
-    console.log("got Description");
-    res.send(result);
-});
-
-router.patch("/Answer/:id", (req, res) => {
-    const result = updateAnswer(req.params.id,req.body);
-    console.log("got Answer");
-    res.send(result);
-});
-
-router.delete("/Delete/:id", (req, res) => {
-    deleteRiddle(req.params.id);
-    res.send(result);
-});
+router.delete("/Delete/:id",deleteRiddle);
 
 export default router;
+
+// router.patch("/name/:id", (req, res) => {
+//     updateName(req.params.id,req.body);
+//     const result = console.log("got name");
+//     res.send(result);
+// });
+
+
+// router.patch("/Description/:id", (req, res) => {
+//     const result = updateDescription(req.params.id,req.body);
+//     console.log("got Description");
+//     res.send(result);
+// });
+
+// router.patch("/Answer/:id", (req, res) => {
+//     const result = updateAnswer(req.params.id,req.body);
+//     console.log("got Answer");
+//     res.send(result);
+// });
+
 
 // import { Router } from 'express';
 // import { addUser,getUsers } from "../controllers/userController.js"

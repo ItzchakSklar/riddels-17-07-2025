@@ -1,10 +1,17 @@
-import { getRiddles,addRiddleServices,isValidRiddle } from "../services/riddles.services.js";
+import {
+    getRiddles,
+    addRiddleServices,
+    isValidRiddle,
+    CheckriddleExist,
+    deleteRiddleServices,
+    updateRiddleServises
+ } from "../services/riddles.services.js";
 
 export async function getRiddlesController(req, res){
     const riddles = await getRiddles();
     console.log("sending", riddles)
     res.json(riddles);
-}
+};
 
 export async function addRiddle(req, res){
     console.log("got riddle",req.body);
@@ -15,80 +22,74 @@ export async function addRiddle(req, res){
     console.log("sending",result);
     res.send(result)
     
-}
+};
 
-export function ChackID(id){
+export async function ChackID(req, res){
+        const result = await CheckriddleExist(req.params.id)
+        console.log("sending enser to find the riddle by id",result)
+        res.send(result);
+};
 
-    const riddles = getRiddles();
-    let flag = false;
-    
+export async function deleteRiddle(req, res){
+    console.log("delete reqest");
+    const result = await deleteRiddleServices(req.params.id);
+    console.log("sending deleted:", result);
+    res.send(result);
+};
+  
+export async function updateRiddle(req, res){
+    const result = await updateRiddleServises(req.params.id,req.body);
+    res.send(result);
+};
 
-    riddles.find(r => r.id == id);
-    
-    return flag
-}
+// export function updateName(id,newName){
 
-export function updateName(id,newName){
+//     const arrRiddls = getRiddles();
 
-    const arrRiddls = getRiddles();
+//     if (arrRiddls.length == 0){return false;};
 
-    if (arrRiddls.length == 0){return false;};
+//     const riddle = arrRiddls.find(r => r.id == id);
+//     if (!riddle) return false;
 
-    const riddle = arrRiddls.find(r => r.id == id);
-    if (!riddle) return false;
+//     riddle.name = newName;
 
-    riddle.name = newName;
+//     return writeBackRiddles(arrRiddls);
 
-    return writeBackRiddles(arrRiddls);
-
-}
-
-
-export function updateDescription(id,newDescription){
-
-    const arrRiddls = getRiddles();
-
-    if (arrRiddls.length == 0){return false;};
-
-    const riddle = arrRiddls.find(r => r.id == id);
-    if (!riddle) return false;
-
-    riddle.taskDescription = newDescription;
-
-    return writeBackRiddles(arrRiddls);
-
-}
+// }
 
 
-export function updateAnswer(id,newAnswer){
+// export function updateDescription(id,newDescription){
 
-    const arrRiddls = getRiddles();
+//     const arrRiddls = getRiddles();
 
-    if (arrRiddls.length == 0){return false;};
+//     if (arrRiddls.length == 0){return false;};
 
-    const riddle = arrRiddls.find(r => r.id == id);
-    if (!riddle) return false;
+//     const riddle = arrRiddls.find(r => r.id == id);
+//     if (!riddle) return false;
 
-    riddle.correctAnswer = newAnswer;
+//     riddle.taskDescription = newDescription;
 
-    return writeBackRiddles(arrRiddls);
+//     return writeBackRiddles(arrRiddls);
 
-}
+// }
 
-export function deleteRiddle(id){
 
-    const arrRiddls = getRiddles();
+// export function updateAnswer(id,newAnswer){
 
-    if (arrRiddls.length == 0){return false;};
+//     const arrRiddls = getRiddles();
 
-    const riddle = arrRiddls.find(r => r.id == id);
-    if (!riddle) return false;
+//     if (arrRiddls.length == 0){return false;};
 
-    const updatedRiddles = arrRiddls.filter(r => r.id != id);
+//     const riddle = arrRiddls.find(r => r.id == id);
+//     if (!riddle) return false;
 
-    return writeBackRiddles(updatedRiddles);
+//     riddle.correctAnswer = newAnswer;
 
-}
+//     return writeBackRiddles(arrRiddls);
+
+// }
+
+
 
 
 //  updateDescription, updateAnswer,

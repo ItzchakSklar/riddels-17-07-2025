@@ -13,9 +13,9 @@ export async function GetAllRiddles() {
 
         const res = await fetch(`http://localhost:${PORT}/riddles/all`);
         const data = await res.json();
-        
+
         arrRiddles = data.map(r =>
-            new Riddle(r.id, r.name, r.taskDescription, r.correctAnswer)
+            new Riddle(r._id, r.name, r.taskDescription, r.correctAnswer)
         );
 
         console.log("Loaded riddles:");
@@ -24,7 +24,6 @@ export async function GetAllRiddles() {
     }
     return arrRiddles
 };
-
 
 
 export async function addRiddle(newRiddle) {
@@ -36,11 +35,11 @@ export async function addRiddle(newRiddle) {
         body: JSON.stringify(newRiddle)
     })
     if (!result.ok) {
-            throw new Error("Network response was not ok " + response.statusText);
-        }
+        throw new Error("Network response was not ok " + response.statusText);
+    }
     const data = await result.text();
     return data;
-}
+};
 
 export async function CheckRiddelIfExist(IDRiddle) {
     const result = await fetch(`http://localhost:${PORT}/riddles/ChackID/${IDRiddle}`, {
@@ -101,19 +100,29 @@ export async function updateRiddelAnswer(IDRiddle, newAnswer) {
 }
 
 export async function DeleteRiddleApi(IDRiddle) {
-    const result = await fetch(`http://localhost:${PORT}/riddles/Delete`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ "ID": IDRiddle })
-    })
+    try {
+        const response = await fetch(`http://localhost:${PORT}/riddles/Delete/${IDRiddle}`, {
+            method: "DELETE"
+        });
 
-    if (result === "true") { console.log("the Riddle Delete suscefuly"); return true; }
-    if (result === "false") { console.log("a problem server to Delete Riddle"); return false; }
+        if (!response.ok) {
+            console.log("Server responded with status:", response.status);
+            return false;
+        }
 
-    console.log("a problem in the server enswer")
-    return false;
+        const data = await response.text(); // או .json() אם אתה מחזיר JSON
+
+        if (data === "true") {
+            console.log("The riddle was deleted successfully");
+            return true;
+        } else {
+            console.log("Server returned unexpected response:", data);
+            return false;
+        }
+    } catch (error) {
+        console.error("Error deleting riddle:", error.message);
+        return false;
+    }
 }
 
 
